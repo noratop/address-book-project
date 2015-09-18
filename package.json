@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/noratop/address-book-project/issues"
   },
-  "homepage": "https://github.com/noratop/address-book-project"
+  "homepage": "https://github.com/noratop/address-book-project",
+  "dependencies": {
+    "inquirer": "^0.10.0"
+  }
 }
