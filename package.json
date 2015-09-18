@@ -1,0 +1,25 @@
+{
+  "name": "the-address-book-project",
+  "version": "0.0.1",
+  "description": "This program is an command-line version of an address book",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noratop/address-book-project.git"
+  },
+  "keywords": [
+    "address-book",
+    "command-line",
+    "nodejs",
+    "decodemtl"
+  ],
+  "author": "Nora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noratop/address-book-project/issues"
+  },
+  "homepage": "https://github.com/noratop/address-book-project"
+}
