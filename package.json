@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/noratop/address-book-project",
   "dependencies": {
+    "cli-table": "^0.3.1",
     "inquirer": "^0.10.0"
   }
 }
