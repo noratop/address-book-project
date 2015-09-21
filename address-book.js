@@ -1,19 +1,128 @@
 //Command-line address book program
-var Promise = require('bluebird');
+//var Promise = require('bluebird');
 var inquirer = require("inquirer");
-var inquirerPromise = Promise.promisifyAll(inquirer);
+//var inquirerPromise = Promise.promisifyAll(inquirer);
+
 var Table = require('cli-table');
 
-var addressBook = [];
 
-function Entry(firstName,lastName,birthday) {
+function Entry(firstName,lastName,birthday,workEmail) {
+    this.name = firstName+' '+lastName;
+    this.value = this;
     this.firstName = firstName;
     this.lastName = lastName;
     this.birthday = birthday;
+    this.workEmail = workEmail
 }
 
-var me = new Entry('Nora','Top','2015/03/28');
-console.log(typeof me);
+var addressBook = {};
+
+
+function exit() {console.log(addressBook);};
+
+function searchEntry() {
+    inquirer.prompt([
+    {
+        type: 'input',
+        name: 'nameToSearch',
+        message: 'Enter the name you are looking for:'
+    }
+    ],function(nameToSearch){
+    
+        var foundEntries = [];
+        
+        // addressBook.forEach(function(elt){
+        //     var searchScope = elt.firstName + elt.lastName;
+        //     if (searchScope.search(nameToSearch) != -1) {
+        //         foundEntries.push(elt);
+        //     }
+        // });
+        
+        for (var entry in addressBook){
+            //console.log(entry);
+            var searchScope = addressBook[entry].firstName + addressBook[entry].lastname + addressBook[entry].workEmail;
+            if (searchScope.search(nameToSearch) != -1) {
+                foundEntries.push(addressBook[entry]);
+            }
+        }
+        
+        var doAnotherSearch = {
+        name : 'Go back and do another search',
+        value : searchEntry
+        };
+        var doBackToMenu = {
+        name : 'Go back to the main menu',
+        value : mainMenu
+        };
+        
+        var menuOptions = [new inquirer.Separator(), doAnotherSearch,doBackToMenu];
+        var options = foundEntries.concat(menuOptions);
+        //console.log(result);
+        
+        inquirer.prompt([
+        {
+            type: 'list',
+            name: 'choice',
+            message: 'Select the name you are looking for or choose another option',
+            choices: options
+        }
+        ], function(result){
+            if (typeof result.choice === 'function') result.choice();
+            if (typeof result.choice === 'object') displayEntry(result.choice);
+        });
+    });
+}
+
+function createOrEditEntry(entry) {
+    //console.log(entry);
+    inquirer.prompt([
+        {
+        type: 'input',
+        name: 'firstName',
+        message: 'First Name:',
+        default: function(){if(entry) return entry.firstName},
+        validate: function(input){if(input) return true; else return 'Please enter a value';}
+    },
+    {
+        type: 'input',
+        name: 'lastName',
+        message: 'Last Name:',
+        default: function(){if(entry) return entry.lastName},
+        validate: function(input){if(input) return true; else return 'Please enter a value';}
+    },
+    {
+        type: 'input',
+        name: 'birthday',
+        default: function(){if(entry) return entry.birthday},
+        message: 'Birthday:'
+    },
+    {
+        type: 'confirm',
+        name: 'hasHome',
+        message: 'Do you want to enter a home address?'
+    },
+    {
+        type: 'input',
+        name: 'workEmail',
+        default: function(){if(entry) return entry.workEmail},
+        message: 'Email:'
+    },
+    ],function(data){
+        //console.log(data);
+        if (entry) {
+            for (var prop in data){
+                entry[prop] = data[prop];
+            }
+        displayEntry(entry);
+        }
+        else {
+            var newEntry = new Entry(data.firstName,data.lastName,data.birthday,data.workEmail);
+            var entryKey = data.firstName+data.lastName;
+            addressBook[entryKey] = newEntry;
+            displayEntry(newEntry);
+        }
+    });
+}
 
 function displayEntry(entry){
     //console.log(entry);
@@ -24,91 +133,54 @@ function displayEntry(entry){
     table.push(
         {"First" : entry.firstName},
         {"Last" : entry.lastName},
-        {"Birth" : entry.birthday}
+        {"Birth" : entry.birthday},
+        {"Email address" : entry.workEmail}
     );
 
     console.log(table.toString());
 
+    var doEditEntry = {name : 'Edit the current entry', value : createOrEditEntry};
+    var doDeleteEntry = {name : 'Delete the current entry',value : deleteMenuEntry};
+    var doBacktoMainMenu = {name : 'Go back to the main menu',value : mainMenu};
 
-    //return to the main menu
-    //startProgram();
-}
-
-displayEntry(me);
-//start the prompt to the user
-function startProgram(){
-    
-    inquirerPromise.prompt([
+    inquirer.prompt([
         {
             type: 'list',
-            name: 'mainMenu',
-            message: 'Main menu: choose an option',
-            choices: ['Create a new address book entry','Search for existing address book entries','Exit the program']
+            name: 'choice',
+            message: 'choose an option',
+            choices: [doEditEntry,doDeleteEntry,doBacktoMainMenu]
         }
-    ]).then(function(mainMenuAnswer){
-        //console.log(mainMenuAnswer);
-        
-//Main menu: if answer to the main menu is 'Create a new address book entry'
-            if (mainMenuAnswer.mainMenu === 'Create a new address book entry') {
-            //console.log(mainMenuAnswer);
-            
-            inquirerPromise.prompt([
-                {
-                    type: 'input',
-                    name: 'firstName',
-                    message: 'First Name:',
-                    validate: function(input){if(input) return true; else return 'Please enter a value';}
-                },
-                {
-                    type: 'input',
-                    name: 'lastName',
-                    message: 'Last Name:',
-                    validate: function(input){if(input) return true; else return 'Please enter a value';}
-                },
-                {
-                    type: 'input',
-                    name: 'birthday',
-                    message: 'Birthday:'
-                },
-                {
-                    type: 'confirm',
-                    name: 'hasHome',
-                    message: 'Do you want to enter a home address?'
-                }
-            ]).then(function(newEntrydata){
-                //console.log(newEntrydata);
-                
-                displayEntry(newEntrydata);
-                //return to the main menu
-            });
-        }
-    
-    //Main menu: if answer to the main menu is 'Search for existing address book entries'
-        if (mainMenuAnswer.mainMenu === 'Search for existing address book entries') {
-            //console.log(mainMenuAnswer);
-            inquirerPromise.prompt([
-            {
-                type: 'input',
-                name: 'nameToSearch',
-                message: 'Enter the name you are looking for:'
-            }
-            ]).then(function(nameToSearch){
-            
-                var result = [];
-                addressBook.forEach(function(elt){
-                    var foundEntries = [];
-                    if (elt.firstName.search(nameToSearch) != -1 || elt.lastName.search(nameToSearch) != -1) {
-                        foundEntries.push(elt);
-                    }
-                });
-                
-                return inquirerPromise.prompt(result);
-            });
-        }
-        
-//if answer to the main menu is Exit the program, nothing is done
-
+    ], function(result){
+        result.choice(entry);
     });
 }
 
-//startProgram();
+function editEntry(entry){
+}
+
+function deleteMenuEntry(entry){
+    delete addressBook[entry.firstName+entry.lastName];
+    mainMenu();
+}
+
+
+//start the prompt to the user
+function mainMenu(){
+    //Main menu options
+    var doCreateEntry = {name : 'Create a new address book entry', value : createOrEditEntry};
+    var doSearchEntry = {name : 'Search for existing address book entries',value : searchEntry};
+    var doExit = {name : 'Exit the program',value : exit};
+
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'choice',
+            message: 'Main menu: choose an option',
+            choices: [doCreateEntry,doSearchEntry,doExit]
+        }
+    ], function(result){
+        result.choice();
+    });
+}
+
+mainMenu();
