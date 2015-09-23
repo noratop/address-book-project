@@ -104,19 +104,19 @@ function createOrEditEntry(abook, entry) {
     {
         type: 'input',
         name: 'birthday',
-        default: function(){if(entry) return entry.birthday},
+        default: function(entry){if(entry) return entry.birthday},
         message: 'Birthday:'
     },
     {
         type: 'confirm',
-        name: 'home',
+        name: 'homeAdd',
         message: 'Do you want to enter/update a home address?',
     },
     {
         type: 'input',
         name: 'homeline1',
         message: 'Address line 1:',
-        when: function(data){return data.home},
+        when: function(data){return data.homeAdd},
         default: function(){if(entry) {if(entry.homeAddress) return entry.homeAddress.line1}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -124,14 +124,14 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'homeline2',
         message: 'Address line 2:',
-        when: function(data){return data.home},
+        when: function(data){return data.homeAdd},
         default: function(){if(entry) {if(entry.homeAddress) return entry.homeAddress.line2}},
     },
     {
         type: 'input',
         name: 'homecity',
         message: 'City:',
-        when: function(data){return data.home},
+        when: function(data){return data.homeAdd},
         default: function(){if(entry) {if(entry.homeAddress) return entry.homeAddress.city}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -139,7 +139,7 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'homeprovince',
         message: 'Province:',
-        when: function(data){return data.home},
+        when: function(data){return data.homeAdd},
         default: function(){if(entry) {if(entry.homeAddress) return entry.homeAddress.province}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -147,7 +147,7 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'homepostalCode',
         message: 'Postal code:',
-        when: function(data){return data.home},
+        when: function(data){return data.homeAdd},
         default: function(){if(entry) {if(entry.homeAddress) return entry.homeAddress.postalCode}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -155,20 +155,20 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'homecountry',
         message: 'Country:',
-        when: function(data){return data.home},
+        when: function(data){return data.homeAdd},
         default: function(){if(entry) {if(entry.homeAddress) return entry.homeAddress.country}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'work',
+        name: 'workAdd',
         message: 'Do you want to enter/update a work address?',
     },
     {
         type: 'input',
         name: 'workline1',
         message: 'Address line 1:',
-        when: function(data){return data.work},
+        when: function(data){return data.workAdd},
         default: function(){if(entry) {if(entry.workAddress) return entry.workAddress.line1}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -176,14 +176,14 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'workline2',
         message: 'Address line 2:',
-        when: function(data){return data.work},
+        when: function(data){return data.workAdd},
         default: function(){if(entry) {if(entry.workAddress) return entry.workAddress.line2}},
     },
     {
         type: 'input',
         name: 'workcity',
         message: 'City:',
-        when: function(data){return data.work},
+        when: function(data){return data.workAdd},
         default: function(){if(entry) {if(entry.workAddress) return entry.workAddress.city}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -191,7 +191,7 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'workprovince',
         message: 'Province:',
-        when: function(data){return data.work},
+        when: function(data){return data.workAdd},
         default: function(){if(entry) {if(entry.workAddress) return entry.workAddress.province}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -199,7 +199,7 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'workpostalCode',
         message: 'Postal code:',
-        when: function(data){return data.work},
+        when: function(data){return data.workAdd},
         default: function(){if(entry) {if(entry.workAddress) return entry.workAddress.postalCode}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -207,20 +207,20 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'workcountry',
         message: 'Country:',
-        when: function(data){return data.work},
+        when: function(data){return data.workAdd},
         default: function(){if(entry) {if(entry.workAddress) return entry.workAddress.country}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'other',
+        name: 'otherAdd',
         message: 'Do you want to enter/update another address?',
     },
     {
         type: 'input',
         name: 'otherline1',
         message: 'Address line 1:',
-        when: function(data){return data.other},
+        when: function(data){return data.otherAdd},
         default: function(){if(entry) {if(entry.otherAddress) return entry.otherAddress.line1}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -228,14 +228,14 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'otherline2',
         message: 'Address line 2:',
-        when: function(data){return data.other},
+        when: function(data){return data.otherAdd},
         default: function(){if(entry) {if(entry.otherAddress) return entry.otherAddress.line2}},
     },
     {
         type: 'input',
         name: 'othercity',
         message: 'City:',
-        when: function(data){return data.other},
+        when: function(data){return data.otherAdd},
         default: function(){if(entry) {if(entry.otherAddress) return entry.otherAddress.city}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -243,7 +243,7 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'otherprovince',
         message: 'Province:',
-        when: function(data){return data.other},
+        when: function(data){return data.otherAdd},
         default: function(){if(entry) {if(entry.otherAddress) return entry.otherAddress.province}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -251,7 +251,7 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'otherpostalCode',
         message: 'Postal code:',
-        when: function(data){return data.other},
+        when: function(data){return data.otherAdd},
         default: function(){if(entry) {if(entry.otherAddress) return entry.otherAddress.postalCode}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
@@ -259,19 +259,19 @@ function createOrEditEntry(abook, entry) {
         type: 'input',
         name: 'othercountry',
         message: 'Country:',
-        when: function(data){return data.other},
+        when: function(data){return data.otherAdd},
         default: function(){if(entry) {if(entry.otherAddress) return entry.otherAddress.country}},
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'home',
-        message: 'Do you want to enter a home phone number?',
+        name: 'homePh',
+        message: 'Do you want to enter/update a home phone number?',
     },
     {
         type: 'input',
         name: 'homephone',
-        when: function(data){if(entry) {return !entry.homePhone;} else return data.home},
+        when: function(data){return data.homePh},
         default: function(){if(entry) {if(entry.homePhone) return entry.homePhone.number}},
         message: 'Phone number:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
@@ -279,20 +279,20 @@ function createOrEditEntry(abook, entry) {
     {
         type: 'input',
         name: 'hometype',
-        when: function(data){if(entry) {return !entry.homePhone;} else return data.home},
+        when: function(data){return data.homePh},
         default: function(){if(entry) {if(entry.homePhone) {return entry.homePhone.number;}} else {return ['landline','cellular','fax']}},
         message: 'Phone type:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'work',
-        message: 'Do you want to enter a work phone number?',
+        name: 'workPh',
+        message: 'Do you want to enter/update a work phone number?',
     },
     {
         type: 'input',
         name: 'worknumber',
-        when: function(data){if(entry) {return !entry.workPhone;} else return data.work},
+        when: function(data){return data.workPh},
         default: function(){if(entry) {if(entry.workPhone) return entry.workPhone.number}},
         message: 'Phone number:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
@@ -300,20 +300,20 @@ function createOrEditEntry(abook, entry) {
     {
         type: 'input',
         name: 'worktype',
-        when: function(data){if(entry) {return !entry.workPhone;} else return data.work},
+        when: function(data){return data.workPh},
         default: function(){if(entry) {if(entry.workPhone) {return entry.workPhone.number;}} else {return ['landline','cellular','fax']}},
         message: 'Phone type:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'other',
-        message: 'Do you want to enter another phone number?'
+        name: 'otherPh',
+        message: 'Do you want to enter/update another phone number?'
     },
     {
         type: 'input',
         name: 'othernumber',
-        when: function(data){if(entry) {return !entry.otherPhone;} else return data.other},
+        when: function(data){return data.otherPh},
         default: function(){if(entry) {if(entry.otherPhone) return entry.otherPhone.number}},
         message: 'Phone number:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
@@ -321,46 +321,46 @@ function createOrEditEntry(abook, entry) {
     {
         type: 'input',
         name: 'othertype',
-        when: function(data){if(entry) {return !entry.otherPhone;} else return data.other},
+        when: function(data){return data.otherPh},
         default: function(){if(entry) {if(entry.otherPhone) {return entry.otherPhone.number;}} else {return ['landline','cellular','fax']}},
         message: 'Phone type:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'home',
-        message: 'Do you want to enter a home email address?',
+        name: 'homeEm',
+        message: 'Do you want to enter/update a home email address?',
     },
     {
         type: 'input',
         name: 'homeEmail',
-        when: function(data){if(entry) {return !entry.homeEmail;} else return data.home},
+        when: function(data){return data.homeEm},
         default: function(){if(entry) return entry.homeEmail},
         message: 'Email:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'work',
-        message: 'Do you want to enter a work email address?',
+        name: 'workEm',
+        message: 'Do you want to enter/update a work email address?',
     },
     {
         type: 'input',
         name: 'workEmail',
-        when: function(data){if(entry) {return !entry.workEmail;} else return data.work},
+        when: function(data){return data.workEm},
         default: function(){if(entry) return entry.workEmail},
         message: 'Email:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
     },
     {
         type: 'confirm',
-        name: 'other',
-        message: 'Do you want to enter another email address?',
+        name: 'otherEm',
+        message: 'Do you want to enter/update another email address?',
     },
     {
         type: 'input',
         name: 'otherEmail',
-        when: function(data){if(entry) {return !entry.otherEmail;} else return data.other},
+        when: function(data){return data.otherEm},
         default: function(){if(entry) return entry.otherEmail},
         message: 'Email:',
         validate: function(input){if(input) return true; else return 'Please enter a value';}
@@ -371,16 +371,16 @@ function createOrEditEntry(abook, entry) {
             for (var key in data){
                 if (entry[key] instanceof Address) {
                     for (var addKey in entry[key]){
-                        if (data.home) entry[key][addKey] = data["home"+addKey];
-                        if (data.work) entry[key][addKey] = data["work"+addKey];
-                        if (data.other)entry[key][addKey] = data["other"+addKey];
+                        if (data.homeAdd) entry[key][addKey] = data["home"+addKey];
+                        if (data.workAdd) entry[key][addKey] = data["work"+addKey];
+                        if (data.otherAdd)entry[key][addKey] = data["other"+addKey];
                     }
                 }                
                 if (entry[key] instanceof Phone) {
                     for (var addKey in entry[key]){
-                        if (data.home) entry[key][addKey] = data["home"+addKey];
-                        if (data.work) entry[key][addKey] = data["work"+addKey];
-                        if (data.other)entry[key][addKey] = data["other"+addKey];
+                        if (data.homePh) entry[key][addKey] = data["home"+addKey];
+                        if (data.workPh) entry[key][addKey] = data["work"+addKey];
+                        if (data.otherPh)entry[key][addKey] = data["other"+addKey];
                     }
                 }
                 else entry[key] = data[key];
@@ -397,14 +397,14 @@ function createOrEditEntry(abook, entry) {
                 data.otherEmail
                 );
                 
-            if (data.home) newEntry.homeAddress = new Address(data.homeline1,data.homeline2,data.homecity,data.homeprovince,data.homepostalCode,data.homecountry);
-            if (data.work) newEntry.workAddress = new Address(data.workline1,data.workline2,data.workcity,data.workprovince,data.workpostalCode,data.workcountry);
-            if (data.other) newEntry.otherAddress = new Address(data.otherline1,data.otherline2,data.othercity,data.otherprovince,data.otherpostalCode,data.othercountry);
-            if (data.home) newEntry.homePhone = new Phone(data.homenumber,data.hometype);
-            if (data.work) newEntry.workPhone = new Phone(data.worknumber,data.worktype);
-            if (data.other) newEntry.otherPhone = new Phone(data.othernumber,data.othertype);
+            if (data.homeAdd) newEntry.homeAddress = new Address(data.homeline1,data.homeline2,data.homecity,data.homeprovince,data.homepostalCode,data.homecountry);
+            if (data.workAdd) newEntry.workAddress = new Address(data.workline1,data.workline2,data.workcity,data.workprovince,data.workpostalCode,data.workcountry);
+            if (data.otherAdd) newEntry.otherAddress = new Address(data.otherline1,data.otherline2,data.othercity,data.otherprovince,data.otherpostalCode,data.othercountry);
+            if (data.homePh) newEntry.homePhone = new Phone(data.homenumber,data.hometype);
+            if (data.workPh) newEntry.workPhone = new Phone(data.worknumber,data.worktype);
+            if (data.otherPh) newEntry.otherPhone = new Phone(data.othernumber,data.othertype);
             
-            //console.log(newEntry.homeAddress);
+            console.log(newEntry);
             var aBookKey = data.firstName+data.lastName;
             abook[aBookKey] = newEntry;
             displayEntry(abook, newEntry);
@@ -437,7 +437,7 @@ function displayEntry(abook, entry){
         address = entry.homeAddress.line1 + '/r' + entry.homeAddress.line2 + '/r' + entry.homeAddress.city + '/r' + 
         entry.homeAddress.province + '/r' + entry.homeAddress.postalCode + '/r' + entry.homeAddress.country + '/r';
     }
-    // table.push({"Addresses" : address};
+    table.push({"Addresses" : address});
     // if (entry.homePhone) table.push({"
     // if (entry.workPhone) table.push({"
     // if (entry.otherPhone) table.push({"
