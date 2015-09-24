@@ -5,8 +5,6 @@ module.exports = {
     Phone : Phone
 }
 
-function AddressBook(){}
-
 function Entry(firstName,lastName,birthday,homeEmail,workEmail,otherEmail) {
     this.name = firstName+' '+lastName;
     this.value = this;
@@ -31,4 +29,5 @@ function Phone(number,type){
     this.number = number;
     this.type = type;
 }
+
 

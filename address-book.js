@@ -1,6 +1,8 @@
 //Command-line address book program
-var constructors = require('./library/constructors');
-var menu = require('./library/menu-options');
+var constructors = require('./library/address-book');
 
-var addressBook = new constructors.AddressBook();
-menu.mainMenu(addressBook);
+var AddressBook = constructors.AddressBook;
+
+var myAddressBook = new AddressBook();
+
+myAddressBook.mainMenu();
